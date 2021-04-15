@@ -1,10 +1,10 @@
 <label>Digite o nome do alimento: </label>
 <input  [(ngModel)]="pesquisa" name ="pesquisa" type="search">
-<button (click)="listarMeals()"> buscar </button>
+<button (click)="fetchMeals()"> buscar </button>
 
 <div class="card my-5" >
   <div class="card-body">
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" *ngIf="mealList !== null">
       <thead class="thead-dark">
         <tr>
           <th scope="col">Name</th>
@@ -15,11 +15,11 @@
         </tr>
       </thead>
       <tbody >
-        <tr *ngFor="let meal of listandoMeals.listaMeal">
+        <tr *ngFor="let meal of mealList">
           <td>{{ meal.strMeal}}</td>
           <td>{{ meal.strCategory }}</td>
           <td>{{ meal.strArea }}</td>
-          <td>{{ meal.strThumbMeal }}</td>
+          <td><img src="{{ meal.strMealThumb }}" alt="{{ meal.strMeal }}"></td>
           <td>{{ meal.strInstructions }}</td>
         </tr>
       </tbody>

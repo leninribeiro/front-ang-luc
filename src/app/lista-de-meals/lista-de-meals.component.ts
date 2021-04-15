@@ -1,7 +1,6 @@
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Meal } from '../model/meal';
-import { MealList } from '../model/meal-list';
 import { MealServiceService } from '../service/meal-service.service';
 
 @Component({
@@ -11,11 +10,16 @@ import { MealServiceService } from '../service/meal-service.service';
 })
 export class ListaDeMealsComponent implements OnInit {
 
-  public pesquisa: string= '';
-  listandoMeals:  MealList = new MealList;
-
+  pesquisa: string = '';
+  mealList: Meal[] | null = null;
 
   constructor(private mealService: MealServiceService) {
+  }
+
+  fetchMeals(): void {
+    this.mealService.findAll(this.pesquisa).subscribe(meals => {
+      this.mealList = meals;
+    });
   }
 
 
@@ -24,20 +28,5 @@ export class ListaDeMealsComponent implements OnInit {
 
   }
 
-  listarMeals() {
-    this.mealService.findAll(this.pesquisa).forEach( res => {
-
-
-        //const parseData = JSON.parse(data).listandoMeals.;
-        var newData = JSON.parse(JSON.stringify(res));
-        console.log("newDataParse " + newData);
-        this.listandoMeals.listaMeal.push(newData);
-
-
-     });
-
-     console.log(this.pesquisa);
-     console.log(this.listandoMeals);
-  }
 
 }

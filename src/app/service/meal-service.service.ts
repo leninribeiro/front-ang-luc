@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { MealList } from '../model/meal-list';
+import { Meal } from '../model/meal';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MealServiceService {
 
-  private apiUrl: string;
+  apiUrl = "https://desafios-back-end.herokuapp.com/meal/";
+
   constructor(private http: HttpClient) {
-    this.apiUrl = "http://localhost:8080/meal/";
   }
 
-  public findAll(pesquisa: string): Observable<MealList> {
-    return this.http.get<MealList>(this.apiUrl+pesquisa);
+  public findAll(pesquisa: string): Observable<Meal[]> {
+    return this.http.get<Meal[]>(this.apiUrl+pesquisa);
   }
 }
